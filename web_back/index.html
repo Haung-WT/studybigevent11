@@ -104,5 +104,43 @@
 
     </script>
 
+    <script>
+
+        $(function(){
+
+            $('.icon-tuichu').parent().on('click',function(e){
+
+                e.preventDefault();
+
+                $.post({
+                    url:"http://localhost:8000/admin/logout",
+                    success:function(backData){
+                        if(backData.code == 200){
+
+                            window.location.href = './login.html';
+                        }
+                    }
+                })
+            })
+        });
+
+        // 获取登录管理员的个人信息
+        $.ajax({
+            type:"get",
+            url:"http://localhost:8000/admin/getuser",
+            success:function(backData){
+
+                if(backData.code == 200){
+
+                    $('.user_info').children('span').html("欢迎&nbsp;&nbsp;"+backData.data.nickname);
+                    $('.user_info').children('img').attr('src',backData.data.user_pic);
+
+                    $('.user_center_link').children('img').attr('src',backData.data.user_pic);
+                }
+            }
+        })
+    </script>
+
+
 </body>
 </html>
